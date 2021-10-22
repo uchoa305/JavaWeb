@@ -1,6 +1,7 @@
 package br.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -40,12 +41,14 @@ public class CategoriaDao
 		
 		while(rs.next()) 
 		{
-			categoria = new Categoria();
-			categoria.setId(rs.getInt(1));
-			categoria.setStatus(rs.getBoolean(2));
-			categoria.setCategoria(rs.getString(3));
-			categoria.setDescricao(rs.getString(4));
-			lista.add(categoria);
+			int id = rs.getInt(1);
+			boolean status = rs.getBoolean(2);
+			String categoria = rs.getString(3);
+			String descricao = rs.getString(4);
+			
+			
+			
+			lista.add(new Categoria(id,categoria,status,descricao));
 		}
 		return lista;
 	}

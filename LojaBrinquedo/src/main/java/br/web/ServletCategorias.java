@@ -19,7 +19,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import com.google.gson.Gson;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * Servlet implementation class ServletCategoria
  */
@@ -51,8 +53,6 @@ public class ServletCategorias extends HttpServlet {
 				{
 					try 
 					{
-						String path = request.getServletContext().getRealPath("/img");
-						String url = null; 
 						categoria.setCategoria(request.getParameter("txtNomeCategoria"));
 						categoria.setDescricao(request.getParameter("txtDescricao"));
 						categoria.setStatus(Boolean.parseBoolean(request.getParameter("slcStatus")));
@@ -71,28 +71,21 @@ public class ServletCategorias extends HttpServlet {
 					if(cmd.equalsIgnoreCase("listar")) 
 					{
 						
-						List<Categoria> clist = dao.listarCategorias();
-		                Gson json = new Gson();
-		                String categoriaList = json.toJson(clist);
-		                response.setContentType("text/html");
-		                response.getWriter().write(categoriaList);
-			            
-			          
-						/*
-						 * List categoriasList = dao.listarCategorias();
-						 * response.setContentType("text/plain");
-						 * response.setCharacterEncoding("UTF-8");
-						 * response.getWriter().write(String.valueOf(dao));
-						 */
-						/*
-						 * request.setAttribute("categoriaList", rd); rd =
-						 * request.getRequestDispatcher("/FormCadastraBrinquedo.jsp");
-						 * rd.forward(request, response);
-						 */
+						try {
+							ObjectMapper mapper = new ObjectMapper();
+							List<Categoria> clist = dao.listarCategorias();
+							response.setStatus(HttpServletResponse.SC_OK);
+							response.getWriter().write(mapper.writeValueAsString(clist)); 
+						}catch(Exception e) 
+						{
+							e.printStackTrace();
+						}			
+						
 					}
 					
 				}catch (Exception e) {
-					// TODO: handle exception
+					e.printStackTrace();
+					throw new ServletException(e);
 				}
 	}
 

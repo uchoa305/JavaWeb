@@ -30,5 +30,15 @@ describe tbBrinquedo;
 ALTER TABLE tbBrinquedo MODIFY foto_brinquedo VARCHAR(200);
 
 INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Aviao","voa");
+INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Caminhão","Anda e carrega coisas");
+INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Carros","Roda e ostenta");
+INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Bonecas","Para quem quiser brincar seila");
+INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Bebes","brinquedos para bebes com menos de 2 anos");
+
+DELETE FROM tbBrinquedo WHERE id=1;
+
+
 select * from tbBrinquedo;
+select * from tbCategoria;
+
 

@@ -2,9 +2,12 @@ package br.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.bean.Brinquedo;
 import br.dao.BrinquedoDao;
@@ -33,15 +36,79 @@ public class ServletBrinquedos extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		// cmd indica o tipo de ação 
+		String cmd = request.getParameter("cmd"); 
+		
+		// objeto CRUD 
+		BrinquedoDao dao ; 
+		
+		// instanciando objeto brinquedo  
+		Brinquedo brinquedo = new Brinquedo(); 
+		
+		// verificando se o cmd nao vem vazio
+		if(cmd != null) 
+		{
+			try 
+			{
+				String path = request.getServletContext().getRealPath("/img");
+				String url = null; 
+			
+							
+				for(Part part: request.getParts()) 
+				{
+						
+					if(part.getName().equals("file"))
+					{
+						
+						part.write(path+File.separator+part.getSubmittedFileName());
+						url = path+File.separator+part.getSubmittedFileName();
+					}
+				}
+				
+				 brinquedo.setNomeBrinquedo(request.getParameter("txtNomeBrinquedo"));
+				 brinquedo.setCodBrinquedo(request.getParameter("txtCodBrinquedo"));
+				 brinquedo.setDescricao(request.getParameter("txtDescricao"));
+				 brinquedo.setPreco(Double.parseDouble(request.getParameter("txtPrecoBrinquedo")));
+				 brinquedo.setCategoria(Integer.parseInt(request.getParameter("slccategoria")));
+				 brinquedo.setFoto(url);
+				
+			}catch(Exception erro) 
+			{
+				erro.printStackTrace();
+				
+			}
+			
+		}
+		try 
+		{
+			// instancia um objeto brinquedoDao
+			dao = new BrinquedoDao(); 
+			RequestDispatcher rd = null; 
+			
+			// inlcuir brinquedo
+			if(cmd.equalsIgnoreCase("listSlider"))
+			{
+				ObjectMapper mapper = new ObjectMapper();
+				List<Brinquedo> clist = dao.listarBrinquedos();
+				response.setStatus(HttpServletResponse.SC_OK);
+				response.getWriter().write(mapper.writeValueAsString(clist));
+			}
+			
+		}catch(Exception erro) 
+		{
+			erro.printStackTrace();
+			throw new ServletException(erro);
+		}	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException 
+	{
 					// cmd indica o tipo de ação 
 					String cmd = request.getParameter("cmd"); 
 					
@@ -75,7 +142,7 @@ public class ServletBrinquedos extends HttpServlet {
 							 brinquedo.setCodBrinquedo(request.getParameter("txtCodBrinquedo"));
 							 brinquedo.setDescricao(request.getParameter("txtDescricao"));
 							 brinquedo.setPreco(Double.parseDouble(request.getParameter("txtPrecoBrinquedo")));
-							 brinquedo.setCategoria(Integer.parseInt(request.getParameter("categoria")));
+							 brinquedo.setCategoria(Integer.parseInt(request.getParameter("slccategoria")));
 							 brinquedo.setFoto(url);
 							
 						}catch(Exception erro) 
@@ -97,14 +164,15 @@ public class ServletBrinquedos extends HttpServlet {
 							//chama metodo de salvar na classe brinquedoDAO
 							dao.salvar(brinquedo);
 							// redireciona para a index
-							rd = request.getRequestDispatcher("index.html");
+							rd = request.getRequestDispatcher("index.jsp");
 							//envia junto request e response
 							rd.forward(request, response);
 						}
 						
 					}catch(Exception erro) 
 					{
-						
+						erro.printStackTrace();
+						throw new ServletException(erro);
 					}				
 	}
 

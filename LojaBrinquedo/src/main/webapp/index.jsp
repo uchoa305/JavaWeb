@@ -29,44 +29,9 @@
     <div id="conteudo-pagina-lida"></div>
     <!-- Hero Section End -->
 
-    <!-- Categories Section Begin -->
-    <!-- <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    Categories Section End
-
-    Featured Section Begin
-    <section class="featured spad">
+    
+    <!-- Featured Section Begin -->
+    <!--  --><section class="featured spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -211,9 +176,9 @@
             </div>
         </div>
     </section>
-    Featured Section End
+    <!--  Featured Section End-->
 
-    Banner Begin
+   <!--  Banner Begin -->
     <div class="banner">
         <div class="container">
             <div class="row">
@@ -230,9 +195,9 @@
             </div>
         </div>
     </div>
-    Banner End
+   <!--   Banner End-->
 
-    Latest Product Section Begin
+    <!-- Latest Product Section Begin -->
     <section class="latest-product spad">
         <div class="container">
             <div class="row">
@@ -434,9 +399,9 @@
             </div>
         </div>
     </section>
-    Latest Product Section End
+    <!-- Latest Product Section End -->
 
-    Blog Section Begin
+   <!-- Blog Section Begin-->
     <section class="from-blog spad">
         <div class="container">
             <div class="row">
@@ -495,7 +460,7 @@
             </div>
         </div>
     </section>
-    Blog Section End -->
+   <!--  Blog Section End -->
 
     <!-- Footer Section Begin -->
     <div id="footer"></div>
@@ -510,9 +475,12 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/bootstrap.min.js.map"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script>
     $(document).ready(function(){   
@@ -522,7 +490,7 @@
         });
         
     
-});
+	});
     $(document).ready(function(){   
         $(function(){
             $("#footer").load("footer.html"); 
@@ -530,7 +498,7 @@
         });
         
     
-});
+	});
     </script>
 
 </body>

@@ -43,7 +43,8 @@
 		    <div class="col-sm-6">
 		    	<label for="exampleInputEmail1"  class="form-label">Categoria</label>
 		    	<button type="button" class="btn btn-primary btn-sm">+</button>
-		    	<select class="form-select" aria-label="Default select example" id="categoria" name="categoria">
+		    	<select class="form-select" aria-label="Default select example" id="categoria" name="slccategoria">
+		    	
 				</select>
 		    </div>
 		    <div id="teste"> </div>
@@ -96,38 +97,17 @@
   </body>
   <script>
   
- 	/* 	function CarregaDados()
- 		{
- 			//document.location.href = "Categorias?cmd=listar";
- 			xhtml = new XMLHttpRequest();
- 			xhtml.onreadystatechange = function(){
- 				if(xhtml.readyState == 4 && xhtml.status == 200)
- 				{
- 					document.getElementById("teste").InnerHTML = xhtml.responseText; 
- 					console.log(xhtml.responseText);
- 				}
- 			}
- 			xhtml.open("GET","categorias?cmd=listar",true);
- 	 		xhtml.send(); 
- 		} */
- 	   $(document).ready(function () {
-           $.ajax({
-               url: "categorias?cmd=listar",
-               method: "GET",
-               data: {},
-               success: function (data, textStatus, jqXHR) {
-                   console.log(data);
-                   let obj = $.parseJSON(data);
-                   $.each(obj, function (key, value) {
-                       $('#categoria').append('<option value="' + value.id + '">' + value.name + '</option>')
-                   });
-                   $('select').formSelect();
-               },
-               error: function (jqXHR, textStatus, errorThrown) {
-                   $('#categoria').append('<option>Categoria indisponivel</option>');
-               },
-               cache: false
-           });
- 	   });
+  	fetch('categorias?cmd=listar').
+  			then(function (response){
+  				response.json().then(function (data){
+  					console.log(data);
+  					data.forEach( function (item){
+  						console.log(item.categoria)
+  						 //$('categoria').append('<option >' + item.categoria + '</option>');	
+  						 $('#categoria').append('<option value="' + item.id + '">' + item.categoria + '</option>')
+  					});
+  				});
+  			});
+  
   </script>
 </html>

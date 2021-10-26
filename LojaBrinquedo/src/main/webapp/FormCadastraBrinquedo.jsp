@@ -42,7 +42,7 @@
 			</div>
 		    <div class="col-sm-6">
 		    	<label for="exampleInputEmail1"  class="form-label">Categoria</label>
-		    	<button type="button" class="btn btn-primary btn-sm">+</button>
+		    	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >+</button>
 		    	<select class="form-select" aria-label="Default select example" id="categoria" name="slccategoria">
 		    	
 				</select>
@@ -80,6 +80,36 @@
 		    </div>  
 		   
 	</form>
+	
+	<!--  modal Categoria  beggin  -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="formCat" method="post" clas="form" enctype="multipart/form-data">
+	       	<!--  <input type="hidden" name="cmd" value="incluir" > -->
+	          <div class="mb-3">
+	            <label for="recipient-name" class="col-form-label">Categoria:</label>
+	            <input type="text" class="form-control" name="txtNomeCategoria">
+	          </div>
+	          <div class="mb-3">
+	            <label for="message-text" class="col-form-label">Descrição:</label>
+	            <textarea class="form-control" id="exampleFormControlTextarea1" name="txtDescricaoCategoria" rows="3"></textarea>
+	          </div>
+	          <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+	        <button type="submit" class="btn btn-primary">Cadastrar</button>
+	      </div>
+       </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 </div>
 
 
@@ -96,18 +126,49 @@
     -->
   </body>
   <script>
-  
+  // carrega option select categoria do form de cadastro de brinquedos
   	fetch('categorias?cmd=listar').
   			then(function (response){
   				response.json().then(function (data){
-  					console.log(data);
+  					
   					data.forEach( function (item){
-  						console.log(item.categoria)
-  						 //$('categoria').append('<option >' + item.categoria + '</option>');	
+  						
+  						 
   						 $('#categoria').append('<option value="' + item.id + '">' + item.categoria + '</option>')
   					});
   				});
   			});
   
+  	$("#formCat").submit(function(){
+  		$.ajax({
+  			url: 'categorias?cmd=incluir',
+  			type: 'POST',
+  			data: $('#formCat').serialize(),
+  			sucess: function (data) {
+  				$('#exampleModal').modal('hide');
+  				
+  
+  			}	
+  		
+  		});
+  		
+  	});
+  	// carrega modal
+  	var exampleModal = document.getElementById('exampleModal')
+  	exampleModal.addEventListener('show.bs.modal', function (event) {
+  	  // Button that triggered the modal
+  	  var button = event.relatedTarget
+  	  // Extract info from data-bs-* attributes
+  	  var recipient = button.getAttribute('data-bs-whatever')
+  	  // If necessary, you could initiate an AJAX request here
+  	  // and then do the updating in a callback.
+  	  //
+  	  // Update the modal's content.
+  	  var modalTitle = exampleModal.querySelector('.modal-title')
+  	  var modalBodyInput = exampleModal.querySelector('.modal-body input')
+
+  	  modalTitle.textContent = 'Cadastro de  Categorias';
+  	  modalBodyInput.value = recipient
+  	})
   </script>
 </html>

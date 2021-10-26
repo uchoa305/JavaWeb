@@ -134,7 +134,8 @@ public class ServletBrinquedos extends HttpServlet {
 								{
 									
 									part.write(path+File.separator+part.getSubmittedFileName());
-									url = path+File.separator+part.getSubmittedFileName();
+									url = part.getSubmittedFileName();
+									System.out.println(url);
 								}
 							}
 							
@@ -164,9 +165,9 @@ public class ServletBrinquedos extends HttpServlet {
 							//chama metodo de salvar na classe brinquedoDAO
 							dao.salvar(brinquedo);
 							// redireciona para a index
-							rd = request.getRequestDispatcher("index.jsp");
+							response.sendRedirect("index.jsp");  
 							//envia junto request e response
-							rd.forward(request, response);
+							
 						}
 						
 					}catch(Exception erro) 

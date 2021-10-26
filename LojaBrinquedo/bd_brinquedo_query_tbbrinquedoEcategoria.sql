@@ -34,9 +34,17 @@ INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,
 INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Carros","Roda e ostenta");
 INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Bonecas","Para quem quiser brincar seila");
 INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Bebes","brinquedos para bebes com menos de 2 anos");
+INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(true,"Action Figurie","colecionaveis");
 
-DELETE FROM tbBrinquedo WHERE id=1;
+DELETE FROM tbBrinquedo WHERE id=15;
+DELETE FROM tbBrinquedo WHERE id=3;
+DELETE FROM tbBrinquedo WHERE id=8;
 
+DELETE FROM tbCategoria WHERE id=7;
+DELETE FROM tbCategoria WHERE id=8;
+DELETE FROM tbCategoria WHERE id=9;
+DELETE FROM tbCategoria WHERE id=10;
+DELETE FROM tbCategoria WHERE id=11;
 
 select * from tbBrinquedo;
 select * from tbCategoria;

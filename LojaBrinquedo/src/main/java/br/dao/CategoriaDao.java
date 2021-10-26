@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,32 @@ public class CategoriaDao
 		}
 	}
 	
+	// metodo para cadastrar catgoria 
+	public void salvar(Categoria categoria) throws Exception
+	{
+		if(categoria == null) 
+		{
+			throw new Exception("preencha as informações");
+		}
+		try 
+		{
+			//System.out.println(categoria.getCategoria());
+			String sql = "INSERT INTO tbCategoria(status,nome_categoria, descricao_categoria) values(?,?,?)";
+			conn = this.conn; 
+			ps= conn.prepareStatement(sql);
+			ps.setBoolean(1, true);
+			ps.setString(2, categoria.getCategoria());
+			ps.setString(3, categoria.getDescricao());
+			ps.executeUpdate(); 
+			
+		}catch(SQLException sql ) 
+		{
+			throw new Exception("erro ao cadastrar os dados" +sql );
+		}finally 
+		{
+			ConnectionFactory.closeConnection(conn, ps, rs);
+		}
+	}
 	//metodo listar todas as categorias
 	public List listarCategorias() throws Exception
 	{

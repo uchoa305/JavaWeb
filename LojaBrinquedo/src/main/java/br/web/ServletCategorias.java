@@ -94,8 +94,48 @@ public class ServletCategorias extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		String cmd  = request.getParameter("cmd");
 		
+		CategoriaDao dao; 
 		
+		Categoria categoria = new Categoria(); 
+		
+		if(cmd!=null) 
+		{
+			try 
+			{
+				categoria.setCategoria(request.getParameter("txtNomeCategoria"));
+				categoria.setDescricao(request.getParameter("txtDescricaoCategoria"));
+				categoria.setId(0);
+				categoria.setStatus(true); 
+			}catch(Exception e )
+			{
+				e.printStackTrace();
+			}
+		}
+		try 
+		{
+			dao = new CategoriaDao(); 
+			RequestDispatcher rd = null;
+			
+			//incluir categoria 
+			if(cmd.equalsIgnoreCase("incluir")) 
+			{
+					dao.salvar(categoria);
+					ObjectMapper mapper = new ObjectMapper();
+					response.setStatus(HttpServletResponse.SC_OK);
+					response.getWriter().write(mapper.writeValueAsString(categoria)); 
+					/*
+					 * rd = request.getRequestDispatcher("FormCadastraBrinquedo.jsp");
+					 * 
+					 * rd.forward(request, response);
+					 */
+			}
+		}catch(Exception erro) 
+		{
+			erro.printStackTrace();
+			throw new ServletException(erro);
+		}
 	}
 
 }

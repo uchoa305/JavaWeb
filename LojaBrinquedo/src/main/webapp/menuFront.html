@@ -170,9 +170,7 @@ fetch('categorias?cmd=listar').
   			then(function (response){
   				response.json().then(function (data){
   					console.log(data);
-  					data.forEach( function (item){
-  						console.log(item.categoria)
-  						 	
+  					data.forEach( function (item){	
   						 $('#listCate').append('<li> <a href="/Catalogo?op='+item.categoria+'">' + item.categoria + '</a></li>')
   					});
   				});
